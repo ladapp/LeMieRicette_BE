@@ -37,7 +37,7 @@ public class LeMieRicetteApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Hello 1");
-		
+		/*
 		String encryptedPwd = encryptionUtils.encrypt("ciao123");
 		log.info("Ecripted pwd into DB: " + encryptedPwd);
 		userDao.save(new User("1", "Davide", "Simboli", "davide.simboli@gmail.com", encryptedPwd, "admin"));
@@ -58,7 +58,7 @@ public class LeMieRicetteApplication implements CommandLineRunner{
 		ricettaDao.save(new Ricetta("7", "Crostata", "2"));
 		ricettaDao.save(new Ricetta("8", "Minestra", "2"));
 		ricettaDao.save(new Ricetta("9", "Fagioli in salsa", "3"));
-		ricettaDao.save(new Ricetta("10", "Biscotti", "3"));
+		ricettaDao.save(new Ricetta("10", "Biscotti", "3"));*/
 	}
 	
 	@Bean
