@@ -40,25 +40,25 @@ public class LeMieRicetteApplication implements CommandLineRunner{
 		
 		String encryptedPwd = encryptionUtils.encrypt("ciao123");
 		log.info("Ecripted pwd into DB: " + encryptedPwd);
-		userDao.save(new User("progressivo1", "Davide", "Simboli", "davide.simboli@gmail.com", encryptedPwd, "admin"));
+		userDao.save(new User("1", "Davide", "Simboli", "davide.simboli@gmail.com", encryptedPwd, "admin"));
 		
 		encryptedPwd = encryptionUtils.encrypt("ciao2");
-		userDao.save(new User("progressivo2", "Alessio", "Morgante", "alessio.morgante@email.it", encryptedPwd, "user"));
+		userDao.save(new User("2", "Alessio", "Morgante", "alessio.morgante@email.it", encryptedPwd, "user"));
 		
 		encryptedPwd = encryptionUtils.encrypt("ciao3");
-		userDao.save(new User("progressivo3", "Loreto", "Cicerone", "loreto.cicerone@email.it", encryptedPwd, "user"));
+		userDao.save(new User("3", "Loreto", "Cicerone", "loreto.cicerone@email.it", encryptedPwd, "user"));
 		
 		ricettaDao.save(new Ricetta("1", "Carbonara"));
 		ricettaDao.save(new Ricetta("2", "Pollo"));
 		ricettaDao.save(new Ricetta("3", "Insalata"));
 		ricettaDao.save(new Ricetta("4", "Tiramisù"));
 		
-		ricettaDao.save(new Ricetta("5", "Matriciana", "progressivo1"));
-		ricettaDao.save(new Ricetta("6", "Ciambellone", "progressivo1"));
-		ricettaDao.save(new Ricetta("7", "Crostata", "progressivo2"));
-		ricettaDao.save(new Ricetta("8", "Minestra", "progressivo2"));
-		ricettaDao.save(new Ricetta("9", "Fagioli in salsa", "progressivo3"));
-		ricettaDao.save(new Ricetta("10", "Biscotti", "progressivo3"));
+		ricettaDao.save(new Ricetta("5", "Matriciana", "1"));
+		ricettaDao.save(new Ricetta("6", "Ciambellone", "1"));
+		ricettaDao.save(new Ricetta("7", "Crostata", "2"));
+		ricettaDao.save(new Ricetta("8", "Minestra", "2"));
+		ricettaDao.save(new Ricetta("9", "Fagioli in salsa", "3"));
+		ricettaDao.save(new Ricetta("10", "Biscotti", "3"));
 	}
 	
 	@Bean

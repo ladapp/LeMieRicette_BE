@@ -86,10 +86,11 @@ public class RestController {
 	}
 	
 	@RequestMapping(value = "/login", method = POST)
-    public ResponseEntity<JsonResponseBody> loginUser(@RequestParam(value = "id") String id, @RequestParam(value="password") String pwd){
+    public ResponseEntity<JsonResponseBody> loginUser(@RequestParam(value = "email") String email, @RequestParam(value="password") String pwd){
 		log.info("Request /login");
 		try {
-    		Optional<User> userr = loginService.getUserFromDbAndVerifyPassword(id, pwd);
+    		//Optional<User> userr = loginService.getUserFromDbAndVerifyPassword(id, pwd);
+    		Optional<User> userr = loginService.getUserFromDbByEmailAndVerifyPassword(email, pwd);
     		if(userr.isPresent()) {
     			User user = userr.get();
     			String jwt = loginService.createJwt(user.getId(), user.getEmail(), user.getPermission(), new Date());

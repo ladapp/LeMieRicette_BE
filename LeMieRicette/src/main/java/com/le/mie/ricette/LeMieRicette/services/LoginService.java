@@ -26,4 +26,5 @@ public interface LoginService {
     //												->  ExpiredJwtException
     
     Optional<User> getUserById(String id);
+    Optional<User> getUserFromDbByEmailAndVerifyPassword(String email, String password)throws UserNotLoggedException;
 }

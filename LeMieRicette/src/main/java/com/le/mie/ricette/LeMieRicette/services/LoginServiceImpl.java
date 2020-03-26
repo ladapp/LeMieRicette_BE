@@ -74,4 +74,21 @@ public class LoginServiceImpl implements LoginService{
 		return userr;
 	}
 
+	@Override
+	public Optional<User> getUserFromDbByEmailAndVerifyPassword(String email, String password)
+			throws UserNotLoggedException {
+		log.info("Login with email and password");
+		Optional<User> userr = userDao.findByEmail(email);
+		if(userr.isPresent()) {
+			User user = userr.get();
+			if(encryptionUtils.decrypt(user.getPassword()).equals(password)) {
+				log.info("Username e password verificate!");
+			}else {
+				log.info("User verified, password not");
+				throw new UserNotLoggedException("Impossibile loggare l'utente!");
+			}
+		}
+		return userr;
+	}
+
 }
