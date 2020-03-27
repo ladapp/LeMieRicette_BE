@@ -30,4 +30,9 @@ public class RicettaServiceImpl implements RicettaService{
 		return ricettaDao.save(ricetta);
 	}
 
+	@Override
+	public List<Ricetta> getRicettaBase() {
+		return ricettaDao.findAllRicettaBase();
+	}
+
 }

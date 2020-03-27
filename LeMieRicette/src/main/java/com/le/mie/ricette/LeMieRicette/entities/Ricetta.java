@@ -24,20 +24,33 @@ public class Ricetta {
 	@Column(name="FK_ACCOUNT")
 	private String fkaccount;
 	
+	@Column(name="PORTATA")
+	@NotEmpty @NotBlank @NotNull
+	private String portata;
+	
+	@Column(name="IMG")
+	@NotEmpty @NotBlank @NotNull
+	private String img;
+	
 	public Ricetta() {
 		
 	}
 
-	public Ricetta(@NotEmpty @NotBlank @NotNull String id, @NotEmpty @NotBlank @NotNull String nomeRicetta) {
+	public Ricetta(@NotEmpty @NotBlank @NotNull String id, @NotEmpty @NotBlank @NotNull String nomeRicetta,
+			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
 		this.id = id;
 		this.nomeRicetta = nomeRicetta;
+		this.portata = portata;
+		this.img = img;
 	}
 	
 	public Ricetta(@NotEmpty @NotBlank @NotNull String id, @NotEmpty @NotBlank @NotNull String nomeRicetta, 
-			String fkaccount) {
+			String fkaccount, @NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
 		this.id = id;
 		this.nomeRicetta = nomeRicetta;
 		this.fkaccount = fkaccount;
+		this.portata = portata;
+		this.img = img;
 	}
 
 	public String getId() {
@@ -62,6 +75,22 @@ public class Ricetta {
 
 	public void setFkaccount(String fkaccount) {
 		this.fkaccount = fkaccount;
+	}
+
+	public String getPortata() {
+		return portata;
+	}
+
+	public void setPortata(String portata) {
+		this.portata = portata;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 }
