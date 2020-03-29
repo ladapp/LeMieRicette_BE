@@ -2,6 +2,8 @@ package com.le.mie.ricette.LeMieRicette.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -13,15 +15,15 @@ import javax.validation.constraints.NotNull;
 public class Ingrediente {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID")
-	@NotEmpty @NotBlank @NotNull
 	private String id;
 	
 	@Column(name="NOME_INGREDIENTE")
 	@NotEmpty @NotBlank @NotNull
 	private String nomeIngrediente;
 
-	public Ingrediente(@NotEmpty @NotBlank @NotNull String id, @NotEmpty @NotBlank @NotNull String nomeIngrediente) {
+	public Ingrediente(String id, @NotEmpty @NotBlank @NotNull String nomeIngrediente) {
 		this.id = id;
 		this.nomeIngrediente = nomeIngrediente;
 	}

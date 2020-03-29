@@ -216,6 +216,7 @@ public class LeMieRicetteApplication implements CommandLineRunner{
 		ingredienteDao.save(new Ingrediente("149", "Cinghiale"));
 		ingredienteDao.save(new Ingrediente("150", "Cervo"));
 		*/
+		ingredienteDao.save(new Ingrediente("Gallina"));
 	}
 	
 	@Bean
