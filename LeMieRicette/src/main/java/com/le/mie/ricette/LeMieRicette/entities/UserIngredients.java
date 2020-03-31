@@ -2,6 +2,8 @@ package com.le.mie.ricette.LeMieRicette.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -13,8 +15,8 @@ import javax.validation.constraints.NotNull;
 public class UserIngredients {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	@NotEmpty @NotBlank @NotNull
 	private String id;
 
 	@Column(name = "user_id")
@@ -31,6 +33,25 @@ public class UserIngredients {
 		this.ingredients_id = ingredients_id;
 	}
 	
+	
+	public UserIngredients(String id, @NotEmpty @NotBlank @NotNull String user_id,
+			@NotEmpty @NotBlank @NotNull String ingredients_id) {
+		this.id = id;
+		this.user_id = user_id;
+		this.ingredients_id = ingredients_id;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	public UserIngredients() {
 		
 	}

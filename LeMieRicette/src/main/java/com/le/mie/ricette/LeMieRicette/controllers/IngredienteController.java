@@ -1,5 +1,7 @@
 package com.le.mie.ricette.LeMieRicette.controllers;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,11 +36,11 @@ public class IngredienteController {
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), ingredienteService.getAllIngrediente()));
 	}
 	
-	@RequestMapping("salvaIngredienti")
-	public ResponseEntity<JsonResponseBody> saveIngredientsOfUser(@RequestParam(value = "userID") String userID, @RequestParam(value = "ingredients") List<Ingrediente> ingredients){
-		for (Ingrediente ingrediente : ingredients) {
-			userIngredientsDao.save(new UserIngredients(userID, ingrediente.getId()));
-		}
+	@RequestMapping(value = "/salvaIngredienti", method = POST)
+	public ResponseEntity<JsonResponseBody> saveIngredientsOfUser(@RequestParam(value = "idUser") String idUser, @RequestParam(value = "idIngrediente") String idIngrediente){
+		log.info("/salvaIngredienti");
+		userIngredientsDao.save(new UserIngredients(idUser, idIngrediente));
+		
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), "Ingredienti associati all'utente"));
 	}
 }

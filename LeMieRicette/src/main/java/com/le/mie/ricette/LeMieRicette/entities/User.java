@@ -2,6 +2,8 @@ package com.le.mie.ricette.LeMieRicette.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -13,8 +15,8 @@ import javax.validation.constraints.NotNull;
 public class User {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	@NotEmpty @NotBlank @NotNull
 	private String id;
 	
 	@Column(name="NOME")
@@ -41,10 +43,20 @@ public class User {
 		
 	}
 
-	public User(@NotEmpty @NotBlank @NotNull String id, @NotEmpty @NotBlank @NotNull String nome,
+	public User(String id, @NotEmpty @NotBlank @NotNull String nome,
 			@NotEmpty @NotBlank @NotNull String cognome, @NotEmpty @NotBlank @NotNull String email,
 			@NotEmpty @NotBlank @NotNull String password, @NotEmpty @NotBlank @NotNull String permission) {
 		this.id = id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.password = password;
+		this.permission = permission;
+	}
+	
+	public User(@NotEmpty @NotBlank @NotNull String nome,
+			@NotEmpty @NotBlank @NotNull String cognome, @NotEmpty @NotBlank @NotNull String email,
+			@NotEmpty @NotBlank @NotNull String password, @NotEmpty @NotBlank @NotNull String permission) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;

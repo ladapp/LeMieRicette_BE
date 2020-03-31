@@ -215,8 +215,10 @@ public class LeMieRicetteApplication implements CommandLineRunner{
 		ingredienteDao.save(new Ingrediente("148", "Faraona"));
 		ingredienteDao.save(new Ingrediente("149", "Cinghiale"));
 		ingredienteDao.save(new Ingrediente("150", "Cervo"));
+		
+		String encryptedPwd = encryptionUtils.encrypt("nuovoUser4");
+		userDao.save(new User("Mario", "Rossi", "mario.rossi@email.it", encryptedPwd, "user"));
 		*/
-		ingredienteDao.save(new Ingrediente("Gallina"));
 	}
 	
 	@Bean
