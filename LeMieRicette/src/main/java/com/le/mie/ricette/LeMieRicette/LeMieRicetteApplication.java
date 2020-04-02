@@ -11,9 +11,11 @@ import org.springframework.context.annotation.Bean;
 
 import com.le.mie.ricette.LeMieRicette.daos.IngredienteDao;
 import com.le.mie.ricette.LeMieRicette.daos.RicettaDao;
+import com.le.mie.ricette.LeMieRicette.daos.StepDao;
 import com.le.mie.ricette.LeMieRicette.daos.UserDao;
 import com.le.mie.ricette.LeMieRicette.entities.Ingrediente;
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
+import com.le.mie.ricette.LeMieRicette.entities.Step;
 import com.le.mie.ricette.LeMieRicette.entities.User;
 import com.le.mie.ricette.LeMieRicette.utils.EncryptionUtils;
 
@@ -32,6 +34,9 @@ public class LeMieRicetteApplication implements CommandLineRunner{
 	
 	@Autowired
 	IngredienteDao ingredienteDao;
+	
+	@Autowired
+	StepDao stepDao;
 	
 	private static final Logger log = LoggerFactory.getLogger(LeMieRicetteApplication.class);
 
