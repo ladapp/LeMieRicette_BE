@@ -2,6 +2,8 @@ package com.le.mie.ricette.LeMieRicette.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -14,8 +16,8 @@ public class Ricetta {
 
 	@Id
 	@Column(name = "ID")
-	@NotEmpty @NotBlank @NotNull
-	private String id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	
 	@Column(name="NOME_RICETTA")
 	@NotEmpty @NotBlank @NotNull
@@ -36,16 +38,23 @@ public class Ricetta {
 		
 	}
 
-	public Ricetta(@NotEmpty @NotBlank @NotNull String id, @NotEmpty @NotBlank @NotNull String nomeRicetta,
+	public Ricetta(@NotEmpty @NotBlank @NotNull String nomeRicetta,
 			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
-		this.id = id;
 		this.nomeRicetta = nomeRicetta;
 		this.portata = portata;
 		this.img = img;
 	}
 	
-	public Ricetta(@NotEmpty @NotBlank @NotNull String id, @NotEmpty @NotBlank @NotNull String nomeRicetta, 
+	public Ricetta(@NotEmpty @NotBlank @NotNull String nomeRicetta, 
 			String fkaccount, @NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
+		this.nomeRicetta = nomeRicetta;
+		this.fkaccount = fkaccount;
+		this.portata = portata;
+		this.img = img;
+	}
+
+	public Ricetta(int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, String fkaccount,
+			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
 		this.id = id;
 		this.nomeRicetta = nomeRicetta;
 		this.fkaccount = fkaccount;
@@ -53,11 +62,19 @@ public class Ricetta {
 		this.img = img;
 	}
 
-	public String getId() {
+	public Ricetta(int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, @NotEmpty @NotBlank @NotNull String portata,
+			@NotEmpty @NotBlank @NotNull String img) {
+		this.id = id;
+		this.nomeRicetta = nomeRicetta;
+		this.portata = portata;
+		this.img = img;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
