@@ -34,40 +34,48 @@ public class Ricetta {
 	@NotEmpty @NotBlank @NotNull
 	private String img;
 	
+	@Column(name="persone")
+	@NotEmpty @NotBlank @NotNull
+	private int persone;
+	
 	public Ricetta() {
 		
 	}
 
 	public Ricetta(@NotEmpty @NotBlank @NotNull String nomeRicetta,
-			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
+			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
 		this.nomeRicetta = nomeRicetta;
 		this.portata = portata;
 		this.img = img;
+		this.persone = persone;
 	}
 	
 	public Ricetta(@NotEmpty @NotBlank @NotNull String nomeRicetta, 
-			String fkaccount, @NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
+			String fkaccount, @NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
 		this.nomeRicetta = nomeRicetta;
 		this.fkaccount = fkaccount;
 		this.portata = portata;
 		this.img = img;
+		this.persone = persone;
 	}
 
 	public Ricetta(int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, String fkaccount,
-			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img) {
+			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
 		this.id = id;
 		this.nomeRicetta = nomeRicetta;
 		this.fkaccount = fkaccount;
 		this.portata = portata;
 		this.img = img;
+		this.persone = persone;
 	}
 
 	public Ricetta(int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, @NotEmpty @NotBlank @NotNull String portata,
-			@NotEmpty @NotBlank @NotNull String img) {
+			@NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
 		this.id = id;
 		this.nomeRicetta = nomeRicetta;
 		this.portata = portata;
 		this.img = img;
+		this.persone = persone;
 	}
 
 	public int getId() {
@@ -108,6 +116,14 @@ public class Ricetta {
 
 	public void setImg(String img) {
 		this.img = img;
+	}
+
+	public int getPersone() {
+		return persone;
+	}
+
+	public void setPersone(int persone) {
+		this.persone = persone;
 	}
 	
 }
