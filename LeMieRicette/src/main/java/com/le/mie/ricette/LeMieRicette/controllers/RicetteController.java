@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,4 +42,18 @@ public class RicetteController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicetteBaseConStep));
 	}
+	
+	@RequestMapping(value = "/ricettePerUser/{userId}")
+	public ResponseEntity<JsonResponseBody> findAllRicetteByAccount(@PathVariable(name = "userId") String userId) throws UnsupportedEncodingException {
+		log.info("/ricettePerUser");
+		
+		List<RicetteConStep> listRicetteUserConStep = new ArrayList<>();
+		List<Ricetta> listRicettaUser = ricettaService.getAllRicettaPerUser(userId);
+		for(int i = 0; i < listRicettaUser.size(); i++) {
+			RicetteConStep ricettaConStep = new RicetteConStep(listRicettaUser.get(i), stepService.findAllByRicettaId(listRicettaUser.get(i).getId()));
+			listRicetteUserConStep.add(ricettaConStep);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicetteUserConStep));
+	}
+	
 }
