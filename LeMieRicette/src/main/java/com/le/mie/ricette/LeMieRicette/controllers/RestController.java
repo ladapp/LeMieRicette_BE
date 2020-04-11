@@ -25,8 +25,10 @@ import com.le.mie.ricette.LeMieRicette.JsonResponseBody.JsonResponseBody;
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
 import com.le.mie.ricette.LeMieRicette.entities.User;
 import com.le.mie.ricette.LeMieRicette.services.LoginService;
+import com.le.mie.ricette.LeMieRicette.services.RegisterService;
 import com.le.mie.ricette.LeMieRicette.services.RicettaService;
 import com.le.mie.ricette.LeMieRicette.services.UserService;
+import com.le.mie.ricette.LeMieRicette.utils.EncryptionUtils;
 import com.le.mie.ricette.LeMieRicette.utils.UserNotLoggedException;
 import com.le.mie.ricette.LeMieRicette.validators.UserValidator;
 
@@ -38,7 +40,13 @@ public class RestController {
 	private static final Logger log = LoggerFactory.getLogger(RestController.class);
 	
 	@Autowired
+	EncryptionUtils encryptionUtils;
+	
+	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	RegisterService registerService;
 	
 	@Autowired
 	RicettaService ricettaService;
@@ -104,6 +112,7 @@ public class RestController {
     	
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "No corrispondence in the database of users!"));
 	}
+	
 	
 	@RequestMapping("/operations/account/{account}")
     public ResponseEntity<JsonResponseBody> fetchAllOperationsPerAccount(HttpServletRequest request, @PathVariable(name = "account") String account){
@@ -172,5 +181,39 @@ public class RestController {
     		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "User not logged, Login first! "+e.toString()));
     	}
     }
+    
+    /**
+     * Metodo utilizzato per registrare un nuovo utente nel database chiamando l'apposito metodo.
+     * @param nome
+     * @param cognome
+     * @param email
+     * @param password
+     * @return
+     */
+    
+    //Levare throws
+    
+    @RequestMapping(value = "/register", method=POST)
+    public ResponseEntity <JsonResponseBody> registerUser (@RequestParam(name ="name") String nome, @RequestParam(name ="surname") String cognome,
+    		@RequestParam(name ="email") String email, @RequestParam(name ="password") String password){
+    	
+    	try {
+    	String pwd = encryptionUtils.encrypt(password);
+		
+		
+		registerService.InserisciUtente(nome, cognome, email, pwd);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), "Registrazione Effettuata"));
+
+    	}
+    	catch(Exception ex) {
+    		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "Registrazione fallita: "+ex.toString()));
+
+    	}
+    	
+            	
+    }
 	
+    
+
 }
