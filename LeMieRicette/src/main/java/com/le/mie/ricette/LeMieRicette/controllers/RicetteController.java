@@ -11,13 +11,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.le.mie.ricette.LeMieRicette.JsonResponseBody.JsonResponseBody;
+import com.le.mie.ricette.LeMieRicette.entities.Ingrediente;
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
 import com.le.mie.ricette.LeMieRicette.entities.RicetteConStep;
 import com.le.mie.ricette.LeMieRicette.services.RicettaService;
 import com.le.mie.ricette.LeMieRicette.services.StepService;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class RicetteController {
@@ -54,6 +57,23 @@ public class RicetteController {
 			listRicetteUserConStep.add(ricettaConStep);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicetteUserConStep));
+	}
+	
+	@RequestMapping(value="/addRicetta", method=POST)
+	public ResponseEntity<JsonResponseBody> addRicetta(@RequestParam(value="id") int id, @RequestParam(value="nomeRicetta") String nomeRicetta, @RequestParam(value="fkaccount") String fkaccount, 
+			@RequestParam(value="portata") String portata, @RequestParam(value="persone") int persone){
+		log.info("Request: /addRicetta");
+		try {
+			ricettaService.saveRicetta(new Ricetta(id, nomeRicetta, fkaccount, portata, null, persone));
+			return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), "Inserimento avvenuto con successo"));
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "ERRORE: "+e.toString()));
+		}
+	}
+	
+	@RequestMapping(value="/numberOfRicette")
+	public ResponseEntity<JsonResponseBody> getNumberOfRicette(){
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), ricettaService.getNumberOfRicette()));
 	}
 	
 }

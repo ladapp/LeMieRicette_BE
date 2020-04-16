@@ -2,8 +2,6 @@ package com.le.mie.ricette.LeMieRicette.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +14,7 @@ public class Ricetta {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@NotNull
 	private int id;
 	
 	@Column(name="NOME_RICETTA")
@@ -31,11 +29,10 @@ public class Ricetta {
 	private String portata;
 	
 	@Column(name="IMG")
-	@NotEmpty @NotBlank @NotNull
 	private String img;
 	
 	@Column(name="persone")
-	@NotEmpty @NotBlank @NotNull
+	@NotNull
 	private int persone;
 	
 	public Ricetta() {
@@ -59,7 +56,7 @@ public class Ricetta {
 		this.persone = persone;
 	}
 
-	public Ricetta(int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, String fkaccount,
+	public Ricetta(@NotEmpty @NotBlank @NotNull int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, String fkaccount,
 			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
 		this.id = id;
 		this.nomeRicetta = nomeRicetta;
@@ -69,7 +66,7 @@ public class Ricetta {
 		this.persone = persone;
 	}
 
-	public Ricetta(int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, @NotEmpty @NotBlank @NotNull String portata,
+	public Ricetta(@NotEmpty @NotBlank @NotNull int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, @NotEmpty @NotBlank @NotNull String portata,
 			@NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
 		this.id = id;
 		this.nomeRicetta = nomeRicetta;

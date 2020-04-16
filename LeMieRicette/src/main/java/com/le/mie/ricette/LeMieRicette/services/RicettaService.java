@@ -10,4 +10,5 @@ public interface RicettaService {
 	List<Ricetta> getAllRicettaPerUser(String userId);
 	Ricetta saveRicetta(Ricetta ricetta);
 	List<Ricetta> getRicettaBase();
+	int getNumberOfRicette();
 }

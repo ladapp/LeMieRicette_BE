@@ -19,4 +19,10 @@ public class StepServiceImpl implements StepService{
 		return stepDao.getAllStepByRicettaId(ricettaId);
 	}
 
+	@Override
+	public void addRicettaStep(int idRicetta, int numStep, String descrizione) {
+		stepDao.save(new Step(idRicetta, numStep, descrizione));
+		
+	}
+
 }

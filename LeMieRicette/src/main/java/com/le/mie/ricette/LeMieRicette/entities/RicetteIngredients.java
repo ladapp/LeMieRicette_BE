@@ -20,11 +20,11 @@ public class RicetteIngredients {
 	private int id;
 	
 	@Column(name="id_ricetta")
-	@NotEmpty @NotBlank @NotNull
+	@NotNull
 	private int id_ricetta;
 	
 	@Column(name="id_ingrediente")
-	@NotEmpty @NotBlank @NotNull
+	@NotNull
 	private int id_ingrediente;
 
 	public RicetteIngredients(int id, @NotEmpty @NotBlank @NotNull int id_ricetta,

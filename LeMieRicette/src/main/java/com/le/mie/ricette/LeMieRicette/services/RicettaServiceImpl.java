@@ -35,4 +35,9 @@ public class RicettaServiceImpl implements RicettaService{
 		return ricettaDao.findAllRicettaBase();
 	}
 
+	@Override
+	public int getNumberOfRicette() {
+		return ricettaDao.getNumberOfRicette();
+	}
+
 }
