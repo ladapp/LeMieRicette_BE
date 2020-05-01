@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.le.mie.ricette.LeMieRicette.JsonResponseBody.JsonResponseBody;
-import com.le.mie.ricette.LeMieRicette.entities.Ingrediente;
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
+import com.le.mie.ricette.LeMieRicette.entities.RicettaCompleta;
 import com.le.mie.ricette.LeMieRicette.entities.RicetteConStep;
 import com.le.mie.ricette.LeMieRicette.services.RicettaService;
 import com.le.mie.ricette.LeMieRicette.services.StepService;
+import com.le.mie.ricette.LeMieRicette.services.RicetteIngredientsService;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -32,6 +33,9 @@ public class RicetteController {
 	
 	@Autowired
 	StepService stepService;
+	
+	@Autowired
+	RicetteIngredientsService ricetteIngredientsService;
 	
 	@RequestMapping("/ricetteBase")
 	public ResponseEntity<JsonResponseBody> findAllRicetteBase() throws UnsupportedEncodingException {
@@ -74,6 +78,16 @@ public class RicetteController {
 	@RequestMapping(value="/numberOfRicette")
 	public ResponseEntity<JsonResponseBody> getNumberOfRicette(){
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), ricettaService.getNumberOfRicette()));
+	}
+	
+	
+	@RequestMapping(value = "/dettaglioRicetta/{ricettaId}")
+	public ResponseEntity<JsonResponseBody> findRicettaById(@PathVariable(name = "ricettaId") int ricettaId) throws UnsupportedEncodingException {
+		
+		Ricetta ricetta = ricettaService.getRicettaById(ricettaId);
+		RicettaCompleta ricettaCompleta=new RicettaCompleta(ricetta, stepService.findAllStepsByRicettaIdCompl(ricettaId), ricetteIngredientsService.findIngredientsByRicettaId(ricettaId));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), ricettaCompleta));
 	}
 	
 }

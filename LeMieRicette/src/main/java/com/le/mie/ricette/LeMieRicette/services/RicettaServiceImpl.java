@@ -39,5 +39,10 @@ public class RicettaServiceImpl implements RicettaService{
 	public int getNumberOfRicette() {
 		return ricettaDao.getNumberOfRicette();
 	}
+	
+	@Override
+	public Ricetta getRicettaById(int ricettaId) {
+		return ricettaDao.findRicettaById(ricettaId);
+	}
 
 }

@@ -24,5 +24,10 @@ public class StepServiceImpl implements StepService{
 		stepDao.save(new Step(idRicetta, numStep, descrizione));
 		
 	}
+	
+	@Override
+	public List<Step> findAllStepsByRicettaIdCompl(int ricettaId) {
+		return stepDao.getAllStepsByRicettaIdCompl(ricettaId);
+	}
 
 }

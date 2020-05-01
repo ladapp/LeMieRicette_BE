@@ -7,6 +7,7 @@ public class RicetteConStep {
 	private Ricetta ricetta;
 	private List<Step> step;
 	
+	
 	public RicetteConStep() {
 	}
 	public RicetteConStep(Ricetta ricetta, List<Step> step) {

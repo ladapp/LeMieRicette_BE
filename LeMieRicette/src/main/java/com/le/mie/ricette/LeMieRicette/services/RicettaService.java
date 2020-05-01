@@ -11,4 +11,5 @@ public interface RicettaService {
 	Ricetta saveRicetta(Ricetta ricetta);
 	List<Ricetta> getRicettaBase();
 	int getNumberOfRicette();
+	Ricetta getRicettaById(int ricettaId);
 }
