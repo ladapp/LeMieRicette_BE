@@ -23,4 +23,10 @@ public interface RicettaDao extends JpaRepository<Ricetta, String>{
 	
 	@Query(value = "SELECT * FROM ricette WHERE ID=:ricettaId", nativeQuery = true)
 	Ricetta findRicettaById(@Param("ricettaId") int ricettaId);
+	
+	@Query(value = "SELECT * FROM ricette WHERE FK_ACCOUNT=:userId AND portata=:ricettaPortata", nativeQuery = true)
+	List<Ricetta>findRicettaByPortata(@Param("userId") String userId, @Param("ricettaPortata") String ricettaPortata );
+	
+	@Query(value = "SELECT * FROM ricette WHERE FK_ACCOUNT IS NULL AND portata=:ricettaPortata", nativeQuery = true)
+	List<Ricetta>findRicettaBaseByPortata(@Param("ricettaPortata") String ricettaPortata );
 }

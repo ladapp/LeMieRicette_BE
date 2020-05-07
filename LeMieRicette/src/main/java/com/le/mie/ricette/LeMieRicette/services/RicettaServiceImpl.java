@@ -44,5 +44,15 @@ public class RicettaServiceImpl implements RicettaService{
 	public Ricetta getRicettaById(int ricettaId) {
 		return ricettaDao.findRicettaById(ricettaId);
 	}
+	
+	@Override
+	public List<Ricetta> getRicettePerPortata(String userId, String ricettaPortata) {
+		return ricettaDao.findRicettaByPortata(userId, ricettaPortata);
+	}
+	
+	@Override
+	public List<Ricetta> getRicetteBasePerPortata (String ricettaPortata){
+		return ricettaDao.findRicettaBaseByPortata(ricettaPortata);
+	}
 
 }

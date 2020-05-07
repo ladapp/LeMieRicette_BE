@@ -54,13 +54,9 @@ public class RicetteController {
 	public ResponseEntity<JsonResponseBody> findAllRicetteByAccount(@PathVariable(name = "userId") String userId) throws UnsupportedEncodingException {
 		log.info("/ricettePerUser");
 		
-		List<RicetteConStep> listRicetteUserConStep = new ArrayList<>();
 		List<Ricetta> listRicettaUser = ricettaService.getAllRicettaPerUser(userId);
-		for(int i = 0; i < listRicettaUser.size(); i++) {
-			RicetteConStep ricettaConStep = new RicetteConStep(listRicettaUser.get(i), stepService.findAllByRicettaId(listRicettaUser.get(i).getId()));
-			listRicetteUserConStep.add(ricettaConStep);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicetteUserConStep));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicettaUser));
 	}
 	
 	@RequestMapping(value="/addRicetta", method=POST)
@@ -88,6 +84,18 @@ public class RicetteController {
 		RicettaCompleta ricettaCompleta=new RicettaCompleta(ricetta, stepService.findAllStepsByRicettaIdCompl(ricettaId), ricetteIngredientsService.findIngredientsByRicettaId(ricettaId));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), ricettaCompleta));
+	}
+	
+	@RequestMapping(value = "/ricetteByPortata/{userId}/{ricettaPortata}")
+	public ResponseEntity<JsonResponseBody> findRicetteByPortata(@PathVariable(name = "userId") String userId,@PathVariable(name = "ricettaPortata") String ricettaPortata) throws UnsupportedEncodingException {
+		
+		List<Ricetta> listRicettaPortata = ricettaService.getRicettePerPortata(userId, ricettaPortata);
+		List<Ricetta> listRicettaBasePortata = ricettaService.getRicetteBasePerPortata(ricettaPortata);
+		for(int i = 0; i < listRicettaBasePortata.size(); i++) {
+			listRicettaPortata.add(listRicettaBasePortata.get(i));
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicettaPortata));
 	}
 	
 }

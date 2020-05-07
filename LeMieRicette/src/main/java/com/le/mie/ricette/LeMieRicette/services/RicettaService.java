@@ -12,4 +12,6 @@ public interface RicettaService {
 	List<Ricetta> getRicettaBase();
 	int getNumberOfRicette();
 	Ricetta getRicettaById(int ricettaId);
+	List<Ricetta> getRicettePerPortata(String userId, String ricettaPortata);
+	List<Ricetta> getRicetteBasePerPortata(String ricettaPortata);
 }
