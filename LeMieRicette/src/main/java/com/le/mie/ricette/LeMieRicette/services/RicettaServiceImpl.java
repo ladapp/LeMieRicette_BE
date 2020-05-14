@@ -54,5 +54,10 @@ public class RicettaServiceImpl implements RicettaService{
 	public List<Ricetta> getRicetteBasePerPortata (String ricettaPortata){
 		return ricettaDao.findRicettaBaseByPortata(ricettaPortata);
 	}
+	
+	@Override
+	public void deleteRicetta(int ricettaId) {
+		ricettaDao.deleteRicettaUser(ricettaId);
+	}
 
 }

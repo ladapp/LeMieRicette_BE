@@ -98,4 +98,12 @@ public class RicetteController {
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicettaPortata));
 	}
 	
+	@RequestMapping(value = "/eliminaRicetta",  method = POST)
+	public ResponseEntity<JsonResponseBody> deleteRIcetta(@RequestParam(value = "ricettaId") int ricettaId) throws UnsupportedEncodingException {
+		
+		ricettaService.deleteRicetta(ricettaId);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), "ricetta eliminata"));
+	}
+	
 }

@@ -3,8 +3,10 @@ package com.le.mie.ricette.LeMieRicette.daos;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
 
@@ -29,4 +31,9 @@ public interface RicettaDao extends JpaRepository<Ricetta, String>{
 	
 	@Query(value = "SELECT * FROM ricette WHERE FK_ACCOUNT IS NULL AND portata=:ricettaPortata", nativeQuery = true)
 	List<Ricetta>findRicettaBaseByPortata(@Param("ricettaPortata") String ricettaPortata );
+	
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM ricette WHERE id=:ricettaId", nativeQuery = true)
+	void deleteRicettaUser(@Param("ricettaId") int ricettaId );
 }
