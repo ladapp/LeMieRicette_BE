@@ -3,7 +3,9 @@ package com.le.mie.ricette.LeMieRicette.controllers;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -14,14 +16,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.le.mie.ricette.LeMieRicette.JsonResponseBody.JsonResponseBody;
+import com.le.mie.ricette.LeMieRicette.entities.Ingrediente;
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
 import com.le.mie.ricette.LeMieRicette.entities.User;
 import com.le.mie.ricette.LeMieRicette.services.LoginService;
@@ -191,8 +198,6 @@ public class RestController {
      * @return
      */
     
-    //Levare throws
-    
     @RequestMapping(value = "/register", method=POST)
     public ResponseEntity <JsonResponseBody> registerUser (@RequestParam(name ="name") String nome, @RequestParam(name ="surname") String cognome,
     		@RequestParam(name ="email") String email, @RequestParam(name ="password") String password){
@@ -214,6 +219,19 @@ public class RestController {
             	
     }
 	
+     @PostMapping(value = "/findRicette", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+     public ResponseEntity <JsonResponseBody> findRicette (@RequestBody ArrayList<Object> list){
     
+        try {
+       List<Integer> listaIdRicette = new ArrayList<Integer>();
+       listaIdRicette = ricettaService.getIDfromIngredients(list);
+       return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listaIdRicette));
+        	
+        }
+       catch(Exception ex) {
+       return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "Ricerca delle ricette fallita: "+ex.toString()));
+        	
+        } 
+     }   
 
 }

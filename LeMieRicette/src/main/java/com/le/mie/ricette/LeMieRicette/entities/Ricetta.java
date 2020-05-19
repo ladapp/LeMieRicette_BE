@@ -15,7 +15,7 @@ public class Ricetta {
 	@Id
 	@Column(name = "ID")
 	@NotNull
-	private int id;
+	private int ID;
 	
 	@Column(name="NOME_RICETTA")
 	@NotEmpty @NotBlank @NotNull
@@ -58,7 +58,7 @@ public class Ricetta {
 
 	public Ricetta(@NotEmpty @NotBlank @NotNull int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, String fkaccount,
 			@NotEmpty @NotBlank @NotNull String portata, @NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
-		this.id = id;
+		this.ID = id;
 		this.nomeRicetta = nomeRicetta;
 		this.fkaccount = fkaccount;
 		this.portata = portata;
@@ -68,7 +68,7 @@ public class Ricetta {
 
 	public Ricetta(@NotEmpty @NotBlank @NotNull int id, @NotEmpty @NotBlank @NotNull String nomeRicetta, @NotEmpty @NotBlank @NotNull String portata,
 			@NotEmpty @NotBlank @NotNull String img, @NotEmpty @NotBlank @NotNull int persone) {
-		this.id = id;
+		this.ID = id;
 		this.nomeRicetta = nomeRicetta;
 		this.portata = portata;
 		this.img = img;
@@ -76,11 +76,11 @@ public class Ricetta {
 	}
 
 	public int getId() {
-		return id;
+		return ID;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.ID = id;
 	}
 
 	public String getNomeRicetta() {

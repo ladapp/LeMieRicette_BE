@@ -1,5 +1,6 @@
 package com.le.mie.ricette.LeMieRicette.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
@@ -11,4 +12,6 @@ public interface RicettaService {
 	Ricetta saveRicetta(Ricetta ricetta);
 	List<Ricetta> getRicettaBase();
 	int getNumberOfRicette();
+	List<Integer> getIDfromIngredients(ArrayList<Object> list);
+	ArrayList<Ricetta> getRicetteByIngredients(List<Object> list);
 }

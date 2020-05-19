@@ -20,4 +20,9 @@ public interface RicettaDao extends JpaRepository<Ricetta, String>{
 	
 	@Query(value="SELECT COUNT(ID) FROM ricette", nativeQuery = true)
 	int getNumberOfRicette();
-}
+	
+	@Query(value="SELECT * FROM ricette WHERE ricette.ID=:id", nativeQuery = true)
+	Ricetta getRicettaByID(@Param("id") Object id);
+	
+	}
+
