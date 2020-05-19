@@ -39,5 +39,15 @@ public interface RicettaDao extends JpaRepository<Ricetta, String>{
 	@Transactional
 	@Query(value = "DELETE FROM ricette WHERE id=:ricettaId", nativeQuery = true)
 	void deleteRicettaUser(@Param("ricettaId") int ricettaId );
+	
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM steps WHERE id_ricetta=:ricettaId", nativeQuery = true)
+	void deleteRicettaSteps(@Param("ricettaId") int ricettaId );
+	
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM ricette_ingredienti WHERE id_ricetta=:ricettaId", nativeQuery = true)
+	void deleteRicettaIngredient(@Param("ricettaId") int ricettaId );
 
 	}

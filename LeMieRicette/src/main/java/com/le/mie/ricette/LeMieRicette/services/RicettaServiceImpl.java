@@ -162,6 +162,8 @@ public class RicettaServiceImpl implements RicettaService{
 	@Override
 	public void deleteRicetta(int ricettaId) {
 		ricettaDao.deleteRicettaUser(ricettaId);
+		ricettaDao.deleteRicettaSteps(ricettaId);
+		ricettaDao.deleteRicettaIngredient(ricettaId);
 	}
 	
 	
