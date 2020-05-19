@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.le.mie.ricette.LeMieRicette.JsonResponseBody.JsonResponseBody;
-import com.le.mie.ricette.LeMieRicette.entities.Ingrediente;
 import com.le.mie.ricette.LeMieRicette.entities.Ricetta;
+import com.le.mie.ricette.LeMieRicette.entities.RicettaCompleta;
 import com.le.mie.ricette.LeMieRicette.entities.RicetteConStep;
 import com.le.mie.ricette.LeMieRicette.services.RicettaService;
 import com.le.mie.ricette.LeMieRicette.services.StepService;
+import com.le.mie.ricette.LeMieRicette.services.RicetteIngredientsService;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -32,6 +33,9 @@ public class RicetteController {
 	
 	@Autowired
 	StepService stepService;
+	
+	@Autowired
+	RicetteIngredientsService ricetteIngredientsService;
 	
 	@RequestMapping("/ricetteBase")
 	public ResponseEntity<JsonResponseBody> findAllRicetteBase() throws UnsupportedEncodingException {
@@ -50,13 +54,9 @@ public class RicetteController {
 	public ResponseEntity<JsonResponseBody> findAllRicetteByAccount(@PathVariable(name = "userId") String userId) throws UnsupportedEncodingException {
 		log.info("/ricettePerUser");
 		
-		List<RicetteConStep> listRicetteUserConStep = new ArrayList<>();
 		List<Ricetta> listRicettaUser = ricettaService.getAllRicettaPerUser(userId);
-		for(int i = 0; i < listRicettaUser.size(); i++) {
-			RicetteConStep ricettaConStep = new RicetteConStep(listRicettaUser.get(i), stepService.findAllByRicettaId(listRicettaUser.get(i).getId()));
-			listRicetteUserConStep.add(ricettaConStep);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicetteUserConStep));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicettaUser));
 	}
 	
 	@RequestMapping(value="/addRicetta", method=POST)
@@ -74,6 +74,36 @@ public class RicetteController {
 	@RequestMapping(value="/numberOfRicette")
 	public ResponseEntity<JsonResponseBody> getNumberOfRicette(){
 		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), ricettaService.getNumberOfRicette()));
+	}
+	
+	
+	@RequestMapping(value = "/dettaglioRicetta/{ricettaId}")
+	public ResponseEntity<JsonResponseBody> findRicettaById(@PathVariable(name = "ricettaId") int ricettaId) throws UnsupportedEncodingException {
+		
+		Ricetta ricetta = ricettaService.getRicettaById(ricettaId);
+		RicettaCompleta ricettaCompleta=new RicettaCompleta(ricetta, stepService.findAllStepsByRicettaIdCompl(ricettaId), ricetteIngredientsService.findIngredientsByRicettaId(ricettaId));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), ricettaCompleta));
+	}
+	
+	@RequestMapping(value = "/ricetteByPortata/{userId}/{ricettaPortata}")
+	public ResponseEntity<JsonResponseBody> findRicetteByPortata(@PathVariable(name = "userId") String userId,@PathVariable(name = "ricettaPortata") String ricettaPortata) throws UnsupportedEncodingException {
+		
+		List<Ricetta> listRicettaPortata = ricettaService.getRicettePerPortata(userId, ricettaPortata);
+		List<Ricetta> listRicettaBasePortata = ricettaService.getRicetteBasePerPortata(ricettaPortata);
+		for(int i = 0; i < listRicettaBasePortata.size(); i++) {
+			listRicettaPortata.add(listRicettaBasePortata.get(i));
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), listRicettaPortata));
+	}
+	
+	@RequestMapping(value = "/eliminaRicetta",  method = POST)
+	public ResponseEntity<JsonResponseBody> deleteRIcetta(@RequestParam(value = "ricettaId") int ricettaId) throws UnsupportedEncodingException {
+		
+		ricettaService.deleteRicetta(ricettaId);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponseBody(HttpStatus.OK.value(), "ricetta eliminata"));
 	}
 	
 }

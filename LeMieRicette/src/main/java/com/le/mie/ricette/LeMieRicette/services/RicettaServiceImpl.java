@@ -132,6 +132,7 @@ public class RicettaServiceImpl implements RicettaService{
 		{     
 			System.out.println("Itero");
 
+
 	     Ricetta ricetta = new Ricetta();
 	     ricetta = ricettaDao.getRicettaByID(id_ricetta);
 	     listaRicette.add(ricetta);
@@ -142,5 +143,26 @@ public class RicettaServiceImpl implements RicettaService{
 		}
 		return listaRicette;
 	}
+	
+	@Override
+	public Ricetta getRicettaById(int ricettaId) {
+		return ricettaDao.findRicettaById(ricettaId);
+	}
+	
+	@Override
+	public List<Ricetta> getRicettePerPortata(String userId, String ricettaPortata) {
+		return ricettaDao.findRicettaByPortata(userId, ricettaPortata);
+	}
+	
+	@Override
+	public List<Ricetta> getRicetteBasePerPortata (String ricettaPortata){
+		return ricettaDao.findRicettaBaseByPortata(ricettaPortata);
+	}
+	
+	@Override
+	public void deleteRicetta(int ricettaId) {
+		ricettaDao.deleteRicettaUser(ricettaId);
+	}
+	
 	
 }

@@ -12,5 +12,9 @@ public interface StepDao extends JpaRepository<Step, Integer>{
 	
 	@Query(value = "SELECT * FROM steps WHERE id_ricetta=:ricettaId", nativeQuery = true)
 	List<Step> getAllStepByRicettaId(@Param("ricettaId") int ricettaId);
+	
+	@Query(value = "SELECT * FROM steps WHERE id_ricetta=:ricettaId", nativeQuery = true)
+	List<Step> getAllStepsByRicettaIdCompl(@Param("ricettaId") int ricettaId);
+
 
 }

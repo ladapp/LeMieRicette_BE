@@ -8,4 +8,5 @@ public interface StepService {
 
 	List<Step> findAllByRicettaId(int ricettaId);
 	void addRicettaStep(int idRicetta, int numStep, String descrizione);
+	List <Step> findAllStepsByRicettaIdCompl(int ricettaId);
 }

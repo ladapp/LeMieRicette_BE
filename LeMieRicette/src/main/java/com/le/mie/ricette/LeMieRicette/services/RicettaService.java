@@ -14,4 +14,8 @@ public interface RicettaService {
 	int getNumberOfRicette();
 	List<Integer> getIDfromIngredients(ArrayList<Object> list);
 	ArrayList<Ricetta> getRicetteByIngredients(List<Object> list);
+	Ricetta getRicettaById(int ricettaId);
+	List<Ricetta> getRicettePerPortata(String userId, String ricettaPortata);
+	List<Ricetta> getRicetteBasePerPortata(String ricettaPortata);
+	void deleteRicetta(int ricettaId);
 }
