@@ -84,7 +84,6 @@ public class RicettaServiceImpl implements RicettaService{
 			
 	     try 
 		    {
-				 
 			 Query getLista = entitymanager.createNativeQuery(result);
 			 
 			 List<Integer> listaRicette = getLista.getResultList();

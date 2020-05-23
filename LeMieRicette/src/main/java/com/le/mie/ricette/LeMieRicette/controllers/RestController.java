@@ -222,6 +222,7 @@ public class RestController {
      @PostMapping(value = "/findRicette", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
      public ResponseEntity <JsonResponseBody> findRicette (@RequestBody ArrayList<Object> list){
     
+ 
         try {
        List<Integer> listaIdRicette = new ArrayList<Integer>();
        listaIdRicette = ricettaService.getIDfromIngredients(list);
