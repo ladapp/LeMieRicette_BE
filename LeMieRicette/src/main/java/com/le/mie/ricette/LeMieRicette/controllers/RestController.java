@@ -61,45 +61,6 @@ public class RestController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping("/hello")
-	@ResponseBody
-	public String sayHello() {
-		log.info("Request /hello");
-		return "Ciao a tutti!";
-	}
-	
-	@RequestMapping("/newUser1")
-	public String addUser(User user) {
-		return "Utente aggiunto: " + user.getId() +", "+ user.getEmail();
-	}
-	
-	@RequestMapping("/newUser2")
-	public String addUserValid(@Valid User user) {
-		log.info("Request /newUser2");
-		return "User added correctly: " + user.getId() + ", " + user.getEmail();
-	}
-	
-	@RequestMapping("/newUser3")
-	public String addUserValidPlusBinding(@Valid User user, BindingResult result) {
-		log.info("Request /newUser3");
-		if(result.hasErrors()) {
-			return result.toString();
-		}
-		return "User added correctly: " + user.getId() + ", " + user.getEmail();
-	}
-	
-	@RequestMapping("/newUser4")
-	public String addUserValidPlusBinding2(User user, BindingResult result) {
-		log.info("Request /newUser4");
-		UserValidator userValidator = new UserValidator();
-		userValidator.validate(user, result);
-		
-		if(result.hasErrors()) {
-			return result.toString();
-		}
-		return "User added correctly: " + user.getId() + ", " + user.getEmail();
-	}
-	
 	@RequestMapping(value = "/login", method = POST)
     public ResponseEntity<JsonResponseBody> loginUser(@RequestParam(value = "email") String email, @RequestParam(value="password") String pwd){
 		log.info("Request /login");
@@ -120,11 +81,6 @@ public class RestController {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new JsonResponseBody(HttpStatus.FORBIDDEN.value(), "No corrispondence in the database of users!"));
 	}
 	
-	
-	@RequestMapping("/operations/account/{account}")
-    public ResponseEntity<JsonResponseBody> fetchAllOperationsPerAccount(HttpServletRequest request, @PathVariable(name = "account") String account){
-    	return null;
-    }
     
     @RequestMapping(value = "/ricette", method =POST)
     public ResponseEntity<JsonResponseBody> fetchAllAccountsPerUser(HttpServletRequest request){
